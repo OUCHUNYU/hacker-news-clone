@@ -19,13 +19,21 @@
         <%= comment.content %><br>
         <a href="/users/<%= comment.user_id %>"> commented by: <%= comment.user.username %></a>
         <% if comment.user_id == session[:user_id] && session[:user_id] %>
-          | <a href="">edit</a> | <a href="">delete</a>
+          <%= comment_id = comment.id %>
+          | <a href="/posts/<%= post_id %>/comments/<%= comment_id %>/edit">edit</a> | <a href="/posts/<%= post_id %>/comments/<%= comment_id %>/delete">delete</a>
         <% end %>
         <br>
         <a href="">reply</a>
+        <% if comment.subcomments.length > 0 %>
         <% comment.subcomments.each do |sub| %>
         <ul>
-          <li><p><%= sub.content %><br><a href="">reply</a></p></li>
+          <li><p><%= sub.content %><br>
+        <a href="/users/<%= sub.user_id %>"> commented by: <%= sub.user.username %></a>
+        <% if sub.user_id == session[:user_id] && session[:user_id] %>
+          <%= sub_id = sub.id %>
+          | <a href="">edit</a> | <a href="">delete</a>
+        <% end %>
+        <br><a href="">reply</a></p></li>
           <% if sub.subcomments.length > 0 %>
             <ul>
               <% sub.subcomments.each do |subsub| %>
@@ -49,6 +57,7 @@
           <% end %>
         </ul>
         <% end %>
+      <% end %>
       </p>
     </li>
   <% end %>
