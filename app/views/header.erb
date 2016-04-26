@@ -1,0 +1,14 @@
+<header>
+  <h1><a href="/">Hacker News</a></h1>
+  <p>
+    <a href="#posts">new</a>
+    <a href="#">comments</a>
+    <a href="#">popular</a>
+    <% if session[:user_id] %>
+      <a id="keep-right" href="/sessions/logout">logout</a>
+      <a id="keep-right" href="/users/<%= session[:user_id] %>">profile</a>
+    <% else %>
+      <a id="keep-right" href="/sessions/new">login</a>
+    <% end %>
+  </p>
+</header>
