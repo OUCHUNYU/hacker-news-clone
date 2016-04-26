@@ -1,0 +1,9 @@
+<form action="/posts/<%= @post_id %>/comments/<%= @comment_id %>" method="POST">
+  <input type="hidden" name="_method" value="PUT">
+  <textarea name="comments[content]" rows="4" cols="49"></textarea>
+  <br>
+  <input type="submit" value="Comment">
+</form>
+
+
+
