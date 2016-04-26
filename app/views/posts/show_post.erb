@@ -1,10 +1,11 @@
 <% if @post %>
 
   <h3><%= @post.title %></h3>
-  <% if post_id = @post.user.id == session[:user_id] && session[:user_id] %>
+  <% if @post.user.id == session[:user_id] && session[:user_id] %>
+    <% post_id = @post.id %>
     <h4><a href="/users/<%= session[:user_id] %>"><%= @post.user.username %></a> | <a href="/posts/<%= post_id %>/edit">edit</a> | <a href="/posts/<%= post_id %>/delete">delete</a></h4>
   <% end %>
-  <p><%= @post.text %></p>
+  <p><%= @post.content %></p>
   <hr>
   <ul>
     <% @post.comments.each do |comment| %>

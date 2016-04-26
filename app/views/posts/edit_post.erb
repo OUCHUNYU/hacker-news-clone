@@ -1,16 +1,17 @@
-<form action="" method="POST">
+<form action="/posts/<%= @post.id %>" method="POST">
+  <input type="hidden" name="_method" value="PUT">
   title:<br>
-  <input type="text" name="posts[title]">
+  <input type="text" name="posts[title]" value="<%= @post.title %>">
   <br>
   url:<br>
-  <input type="text" name="posts[url]">
+  <input type="text" name="posts[url]" value="<%= @post.url %>">
   <br>
   or<br>
   <br>
   text:<br>
-  <textarea name="posts[content]" rows="4" cols="49"></textarea>
+  <textarea name="posts[content]" rows="4" cols="49"><%= @post.content %></textarea>
   <br><br>
-  <input type="submit" value="Submit">
+  <input type="submit" value="update">
 </form>
 
 
