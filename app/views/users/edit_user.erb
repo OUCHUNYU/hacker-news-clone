@@ -1,0 +1,9 @@
+<h3>Reset your password</h3>
+<form action="/users/<%= @user.id %>" method="POST">
+  <input type="hidden" name="_method" value="PUT">
+  new password:<br>
+  <input type="password" name="password">
+  <br>
+  <br>
+  <input type="submit" value="Submit">
+</form>

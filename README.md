@@ -2,4 +2,4 @@
 
 
 ### Schema
-[!schema](public/schema.png)
+![schema](public/schema.png)
