@@ -14,16 +14,18 @@
   <br>
   <ul>
   <% @post.comments.each do |comment| %>
+
     <li>
       <p>
         <%= comment.content %><br>
         <a href="/users/<%= comment.user_id %>"> commented by: <%= comment.user.username %></a>
         <% if comment.user_id == session[:user_id] && session[:user_id] %>
-          <%= comment_id = comment.id %>
+        <% comment_id = comment.id %>
           | <a href="/posts/<%= post_id %>/comments/<%= comment_id %>/edit">edit</a> | <a href="/posts/<%= post_id %>/comments/<%= comment_id %>/delete">delete</a>
         <% end %>
         <br>
-        <a href="">reply</a>
+
+        <a href="/post/<%= post_id %>/comments/<%= comment_id %>/subcomments/new">reply</a>
         <% if comment.subcomments.length > 0 %>
         <% comment.subcomments.each do |sub| %>
         <ul>
@@ -33,15 +35,15 @@
           <%= sub_id = sub.id %>
           | <a href="">edit</a> | <a href="">delete</a>
         <% end %>
-        <br><a href="">reply</a></p></li>
+        <br><a href="/post/<%= post_id %>/comments/<%= sub.id %>/subcomments/new">reply</a></p></li>
           <% if sub.subcomments.length > 0 %>
             <ul>
               <% sub.subcomments.each do |subsub| %>
-                <li><p><%= subsub.content %><br><a href="">reply</a></p></li>
+                <li><p><%= subsub.content %><br><a href="/post/<%= post_id %>/comments/<%= subsub.id %>/subcomments/new">reply</a></p></li>
                   <% if subsub.subcomments.length > 0 %>
                     <ul>
                       <% subsub.subcomments.each do |subsubsub| %>
-                        <li><p><%= subsubsub.content %><br><a href="">reply</a></p></li>
+                        <li><p><%= subsubsub.content %><br><a href="/post/<%= post_id %>/comments/<%= subsubsub.id %>/subcomments/new">reply</a></p></li>
                         <% if subsubsub.subcomments.length > 0 %>
                           <ul>
                             <% subsubsub.subcomments.each do |subsubsubsub| %>
