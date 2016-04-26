@@ -29,14 +29,14 @@ end
 
 get '/posts/:post_id/comments/:id/edit' do
   if session[:user_id]
-    post = Post.find(params[:post_id])
-    target_comment = post.comments.find(params[:id])
+    user = User.find(session[:user_id])
+    target_comment = user.comments.find(params[:id])
     if target_comment
       @post_id = params[:post_id]
       @comment_id = params[:id]
       erb :'/comments/edit_comment'
     else
-      session[:errors] = "Comment not found"
+      session[:errors] = "You can't edit other users comment"
       redirect "/"
     end
   else
@@ -46,7 +46,35 @@ get '/posts/:post_id/comments/:id/edit' do
 end
 
 put '/posts/:post_id/comments/:id' do
+  if session[:user_id]
+    user = User.find(session[:user_id])
+    target_comment = user.comments.find(params[:id])
+    if target_comment
+      target_comment.update_attributes(content: params['comments']['content'])
+      redirect "/posts/#{params[:post_id]}"
+    else
+      session[:errors] = "You can't edit other users comment"
+      redirect "/"
+    end
+  else
+    session[:errors] = "You need to login"
+    redirect '/sessions/new'
+  end
 end
 
-delete '/posts/:post_id/comments/:id' do
+get '/posts/:post_id/comments/:id/delete' do
+  if session[:user_id]
+    user = User.find(session[:user_id])
+    target_comment = user.comments.find(params[:id])
+    if target_comment
+      target_comment.destroy
+      redirect "/posts/#{params[:post_id]}"
+    else
+      session[:errors] = "You can't delete other users comment"
+      redirect "/"
+    end
+  else
+    session[:errors] = "You need to login"
+    redirect '/sessions/new'
+  end
 end
