@@ -1,15 +1,56 @@
 <% if @post %>
 
   <h3><%= @post.title %></h3>
+  <% post_id = @post.id %>
   <% if @post.user.id == session[:user_id] && session[:user_id] %>
-    <% post_id = @post.id %>
     <h4><a href="/users/<%= session[:user_id] %>"><%= @post.user.username %></a> | <a href="/posts/<%= post_id %>/edit">edit</a> | <a href="/posts/<%= post_id %>/delete">delete</a></h4>
   <% end %>
   <p><%= @post.content %></p>
-  <hr>
+  <br>
+  <br>
+  <%= erb :'/comments/new_comment', locals: { post_id: post_id } %>
+  <br>
+  <br>
+  <br>
   <ul>
-    <% @post.comments.each do |comment| %>
-    <li><p><%= comment.content %></p></li>
-    <% end %>
-  </ul>
+  <% @post.comments.each do |comment| %>
+    <li>
+      <p>
+        <%= comment.content %><br>
+        <a href="/users/<%= comment.user_id %>"> commented by: <%= comment.user.username %></a>
+        <% if comment.user_id == session[:user_id] && session[:user_id] %>
+          | <a href="">edit</a> | <a href="">delete</a>
+        <% end %>
+        <br>
+        <a href="">reply</a>
+        <% comment.subcomments.each do |sub| %>
+        <ul>
+          <li><p><%= sub.content %><br><a href="">reply</a></p></li>
+          <% if sub.subcomments.length > 0 %>
+            <ul>
+              <% sub.subcomments.each do |subsub| %>
+                <li><p><%= subsub.content %><br><a href="">reply</a></p></li>
+                  <% if subsub.subcomments.length > 0 %>
+                    <ul>
+                      <% subsub.subcomments.each do |subsubsub| %>
+                        <li><p><%= subsubsub.content %><br><a href="">reply</a></p></li>
+                        <% if subsubsub.subcomments.length > 0 %>
+                          <ul>
+                            <% subsubsub.subcomments.each do |subsubsubsub| %>
+                              <li><p><%= subsubsubsub.content %></p></li>
+                            <% end %>
+                          </ul>
+                        <% end %>
+                      <% end %>
+                    </ul>
+                  <% end %>
+              <% end %>
+            </ul>
+          <% end %>
+        </ul>
+        <% end %>
+      </p>
+    </li>
+  <% end %>
+</ul>
 <% end %>
