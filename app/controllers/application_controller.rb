@@ -1,8 +1,4 @@
-get '/users/:id/comments' do
-
+get '/newest' do
+  @posts = Post.order(:created_at)
+  erb :'/posts/index_post'
 end
-
-get '/users/:id/submissions' do
-
-end
-

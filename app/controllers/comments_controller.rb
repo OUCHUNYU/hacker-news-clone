@@ -3,10 +3,6 @@ get '/comments' do
   erb :'/comments/index_comment'
 end
 
-# get '/posts/:post_id/comments/new' do
-
-# end
-
 post '/posts/:post_id/comments' do
   if session[:user_id]
     post = Post.find(params[:post_id])
@@ -23,9 +19,6 @@ post '/posts/:post_id/comments' do
     redirect '/sessions/new'
   end
 end
-
-# get '/posts/:id/comments/:id' do
-# end
 
 get '/posts/:post_id/comments/:id/edit' do
   if session[:user_id]

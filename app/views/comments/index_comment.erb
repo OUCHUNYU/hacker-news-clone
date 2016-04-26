@@ -1,0 +1,10 @@
+
+<% if @comments %>
+  <% @comments.each do |comment| %>
+    <p>
+      <%= comment.content %><br>
+      commented by: <a href="/users/<%= comment.user_id %>"><%= comment.user.username %></a>
+    </p>
+  <% end %>
+<% end %>
+

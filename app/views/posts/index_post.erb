@@ -1,7 +1,19 @@
 <ol>
   <% if @posts %>
     <% @posts.each do |post| %>
-      <li><p><a href="/posts/<%= post.id %>"><%= post.title %></a></p></li>
+    <% post_id = post.id %>
+      <li><p>
+      <% if post.url.length > 0 %>
+        <a href="<%= post.url %>"><%= post.title %></a>
+      <% else %>
+        <a href="/posts/<%= post_id %>"><%= post.title %></a>
+      <% end %>
+      <br>
+      <a href="">Up</a> | <a href="">Down</a> | created by: <a href="/users/<%= post.user_id  %>"><%= post.user.username %></a> |
+        <% if post.user_id == session[:user_id] %>
+          <a href="/posts/<%= post_id %>/edit">edit</a> | <a href="/posts/<%= post_id %>/delete">delete</a>
+        <% end %>
+      </p></li>
     <% end %>
   <% end %>
 </ol>
