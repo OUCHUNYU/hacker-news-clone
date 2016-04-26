@@ -10,7 +10,7 @@ end
 post '/posts' do
   if session[:user_id]
     @user = User.find(session[:user_id])
-    new_post = @user.posts.new(title: params['posts']['title'], url: params['posts']['url'], text: params['posts']['text'])
+    new_post = @user.posts.new(title: params['posts']['title'], url: params['posts']['url'], content: params['posts']['content'])
     if new_post.valid?
       new_post.save
       redirect '/'
@@ -41,7 +41,36 @@ get '/posts/:id/edit' do
 end
 
 put '/posts/:id' do
+  if session[:user_id]
+    @user = User.find(session[:user_id])
+    target_post = @user.posts.find(params[:id])
+    if target_post
+      target_post.update_attributes(title: params['posts']['title'], url: params['posts']['url'], content: params['posts']['content'])
+      redirect "/posts/#{params[:id]}"
+    else
+      session[:errors] = "Post not found"
+      redirect '/'
+    end
+  else
+    session[:errors] = "You need to login"
+    redirect '/sessions/new'
+  end
 end
 
 get '/posts/:id/delete' do
+  if session[:user_id]
+    @user = User.find(session[:user_id])
+    target_post = @user.posts.find(params[:id])
+    if target_post
+      target_post.destroy
+      redirect "/"
+    else
+      session[:errors] = "Post not found"
+      redirect '/'
+    end
+  else
+    session[:errors] = "You need to login"
+    redirect '/sessions/new'
+  end
 end
+
