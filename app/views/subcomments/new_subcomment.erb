@@ -1,0 +1,15 @@
+  <br>
+  <br>
+  <h1>Write a comment for:</h1>
+  <p><strong><%= @comment.content %></strong></p>
+  <p>Posted by: <a href="/users/<%= @comment.user_id %>"><%= @comment.user.username %></a></p>
+  <br>
+<form action="/post/<%= @post_id %>/comments/<%= @comment.id %>/subcomments" method="POST">
+  <textarea name="subcomments[content]" rows="4" cols="49"></textarea>
+  <br>
+  <br>
+  <input type="submit" value="Comment">
+</form>
+
+
+
