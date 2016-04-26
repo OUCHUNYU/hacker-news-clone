@@ -8,7 +8,20 @@ get '/posts/new' do
 end
 
 post '/posts' do
-  new_post = Post.new(title: params['posts']['title'], url: params['posts']['url'], text: params['posts']['text'])
+  if session[:user_id]
+    @user = User.find(session[:user_id])
+    new_post = @user.posts.new(title: params['posts']['title'], url: params['posts']['url'], text: params['posts']['text'])
+    if new_post.valid?
+      new_post.save
+      redirect '/'
+    else
+      session[:errors] = new_post.errors.full_messages[0]
+      erb :'/posts/new_post'
+    end
+  else
+    session[:errors] = "You need to login"
+    redirect '/sessions/new'
+  end
 end
 
 get '/posts/:id' do
@@ -17,10 +30,18 @@ get '/posts/:id' do
 end
 
 get '/posts/:id/edit' do
+  user = User.find(session[:user_id])
+  @post = user.posts.find_by(id: params[:id])
+  if @post
+    erb :'/posts/edit_post'
+  else
+    session[:errors] = "Post not found"
+    redirect '/'
+  end
 end
 
 put '/posts/:id' do
 end
 
-delete '/posts/:id' do
+get '/posts/:id/delete' do
 end
