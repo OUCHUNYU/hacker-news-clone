@@ -1,0 +1,14 @@
+<% if @user %>
+  <% if @user.id == session[:user_id] && session[:user_id] %>
+    <p>user: <a href="/users/<%= @user.id %>"><%= @user.username %></a></p>
+    <p>created: <%= @user.created_at %></p>
+    <p><a href="/users/<%= @user.id %>/edit">change password</a></p>
+    <p><a href="">submissions</a></p>
+    <p><a href="">comments</a></p>
+  <% else %>
+    <p>user: <a href="/users/<%= @user.id %>"><%= @user.username %></a></p>
+    <p>created: <%= @user.created_at %></p>
+    <p><a href="">submissions</a></p>
+    <p><a href="">comments</a></p>
+  <% end %>
+<% end %>
