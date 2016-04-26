@@ -1,0 +1,7 @@
+<% if session[:success] %>
+<p><%= session[:success] %></p>
+<% session[:success] = nil %>
+<% elsif session[:errors] %>
+<p><%= session[:errors] %></p>
+<% session[:errors] = nil %>
+<% end %>
