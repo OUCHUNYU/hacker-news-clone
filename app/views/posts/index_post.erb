@@ -9,7 +9,7 @@
         <a href="/posts/<%= post_id %>"><%= post.title %></a>
       <% end %>
       <br>
-      <a href="">Up</a> | <a href="">Down</a> | created by: <a href="/users/<%= post.user_id  %>"><%= post.user.username %></a> |
+      <a href="">vote</a> | created by: <a href="/users/<%= post.user_id  %>"><%= post.user.username %></a> |
         <% if post.user_id == session[:user_id] %>
           <a href="/posts/<%= post_id %>/edit">edit</a> | <a href="/posts/<%= post_id %>/delete">delete</a>
         <% end %>
