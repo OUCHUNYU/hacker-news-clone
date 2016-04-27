@@ -1,7 +1,22 @@
-$(document).ready(function() {
-  // This is called after the document has loaded in its entirety
-  // This guarantees that any elements we bind to will exist on the page
-  // when we try to bind to them
 
-  // See: http://docs.jquery.com/Tutorials:Introducing_$(document).ready()
+$(document).ready(function() {
+
+  $('.vote').on('click', function(e) {
+    e.preventDefault();
+    var upvote = $(this);
+    $.get($(this).attr("href"), function(data) {
+      // upvote.parent().text(function() {
+      //   return $(this).text().replace(/vote count: \d*/, "vote count: " + data.total);
+      // })
+      if (data == "redirect!") {
+        window.location.href = "http://localhost:9393/sessions/new";
+      }else {
+        upvote.remove();
+      }
+
+    });
+
+  })
+
+
 });
