@@ -1,19 +1,28 @@
-<ol>
-  <% if @posts %>
-    <% @posts.each do |post| %>
-    <% post_id = post.id %>
-      <li><p>
-      <% if post.url.length > 0 %>
-        <a href="<%= post.url %>"><%= post.title %></a>
-      <% else %>
-        <a href="/posts/<%= post_id %>"><%= post.title %></a>
-      <% end %>
-      <br>
-      <a href="">vote</a> | created by: <a href="/users/<%= post.user_id  %>"><%= post.user.username %></a> |
-        <% if post.user_id == session[:user_id] %>
-          <a href="/posts/<%= post_id %>/edit">edit</a> | <a href="/posts/<%= post_id %>/delete">delete</a>
-        <% end %>
-      </p></li>
+
+<% if @posts %>
+  <% @posts.each do |post| %>
+  <% post_id = post.id %>
+    <p>
+    <% if post.url.length > 0 %>
+      <a href="<%= post.url %>"><%= post.title %></a>
+    <% else %>
+      <a href="/posts/<%= post_id %>"><%= post.title %></a>
     <% end %>
+    <br>
+
+    <% unless post.votes.find_by(user_id: session[:user_id]) && session[:user_id] %>
+      <a href="/posts/<%= post_id %>/votes">vote</a>
+    <% end %>
+
+    <% if last_vote = post.votes.last %>
+      last voted by: <a href="/users/<%= last_vote.user_id %>"><%= last_vote.user.username %></a> |
+    <% end %>
+
+    vote count: <%= post.votes.count %> |
+      created by: <a href="/users/<%= post.user_id  %>"><%= post.user.username %></a> |
+      <% if post.user_id == session[:user_id] && session[:user_id] %>
+        <a href="/posts/<%= post_id %>/edit">edit</a> | <a href="/posts/<%= post_id %>/delete">delete</a>
+      <% end %>
+    </p>
   <% end %>
-</ol>
+<% end %>

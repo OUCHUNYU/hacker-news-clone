@@ -13,29 +13,56 @@
   <br>
   <br>
   <ul>
+
+  <!-- ************************************************************************************************************************************** -->
+                                <!-- level 1 -->
   <% @post.comments.each do |comment| %>
 
     <li>
       <p>
         <%= comment.content %><br>
-        <a href="/users/<%= comment.user_id %>"> commented by: <%= comment.user.username %></a>
+         commented by:<a href="/users/<%= comment.user_id %>"> <%= comment.user.username %></a>
         <% comment_id = comment.id %>
         <% if comment.user_id == session[:user_id] && session[:user_id] %>
           | <a href="/posts/<%= post_id %>/comments/<%= comment_id %>/edit">edit</a> | <a href="/posts/<%= post_id %>/comments/<%= comment_id %>/delete">delete</a>
         <% end %>
         <br>
 
+        <% unless comment.votes.find_by(user_id: session[:user_id]) && session[:user_id] %>
+          <a href="/posts/<%= post_id %>/comments/<%= comment_id %>/votes">vote</a> |
+        <% end %>
+        <% if last_vote = comment.votes.last %>
+          last voted by: <a href="/users/<%= last_vote.user_id %>"><%= last_vote.user.username %></a> |
+        <% end %>
         <a href="/post/<%= post_id %>/comments/<%= comment_id %>/subcomments/new">reply</a>
+
+<!-- ************************************************************************************************************************************** -->
+                                <!-- level 2 -->
+
         <% if comment.subcomments.length > 0 %>
         <% comment.subcomments.each do |sub| %>
         <ul>
           <li><p><%= sub.content %><br>
-        <a href="/users/<%= sub.user_id %>"> commented by: <%= sub.user.username %></a>
+         commented by: <a href="/users/<%= sub.user_id %>"> <%= sub.user.username %></a>
         <% sub_id = sub.id %>
+
         <% if sub.user_id == session[:user_id] && session[:user_id] %>
-          | <a href="/posts/<%= post_id %>/comments/<%= sub_id %>/edit">edit</a> | <a href="/posts/<%= post_id %>/comments/<%= sub_id %>/delete">delete</a>
+          | <a href="/posts/<%= post_id %>/comments/<%= sub_id %>/edit">edit</a> | <a href="/posts/<%= post_id %>/comments/<%= sub_id %>/delete">delete</a><br>
         <% end %>
-        <br><a href="/post/<%= post_id %>/comments/<%= sub.id %>/subcomments/new">reply</a></p></li>
+
+        <% unless sub.votes.find_by(user_id: session[:user_id]) && session[:user_id] %>
+          <a href="/posts/<%= post_id %>/comments/<%= sub_id %>/votes">vote</a> |
+        <% end %>
+
+        <% if last_vote = sub.votes.last %>
+          last voted by: <a href="/users/<%= last_vote.user_id %>"><%= last_vote.user.username %></a> |
+        <% end %>
+
+        <a href="/post/<%= post_id %>/comments/<%= sub.id %>/subcomments/new">reply</a></p></li>
+
+<!-- ************************************************************************************************************************************** -->
+                                <!-- level 3 -->
+
           <% if sub.subcomments.length > 0 %>
             <ul>
               <% sub.subcomments.each do |subsub| %>
@@ -45,7 +72,21 @@
                   <% if subsub.user_id == session[:user_id] && session[:user_id] %>
                     | <a href="/posts/<%= post_id %>/comments/<%= subsub_id %>/edit">edit</a> | <a href="/posts/<%= post_id %>/comments/<%= subsub_id %>/delete">delete</a>
                   <% end %>
-                <br><a href="/post/<%= post_id %>/comments/<%= subsub.id %>/subcomments/new">reply</a></p></li>
+                  <br>
+
+                  <% unless subsub.votes.find_by(user_id: session[:user_id]) && session[:user_id] %>
+                    <a href="/posts/<%= post_id %>/comments/<%= subsub_id %>/votes">vote</a> |
+                  <% end %>
+
+                  <% if last_vote = subsub.votes.last %>
+                    last voted by: <a href="/users/<%= last_vote.user_id %>"><%= last_vote.user.username %></a> |
+                  <% end %>
+
+                  <a href="/post/<%= post_id %>/comments/<%= subsub.id %>/subcomments/new">reply</a></p></li>
+
+<!-- ************************************************************************************************************************************** -->
+                                <!-- level 4 -->
+
                   <% if subsub.subcomments.length > 0 %>
                     <ul>
                       <% subsub.subcomments.each do |subsubsub| %>
@@ -56,7 +97,20 @@
                     | <a href="/posts/<%= post_id %>/comments/<%= subsubsub_id %>/edit">edit</a> | <a href="/posts/<%= post_id %>/comments/<%= subsubsub_id %>/delete">delete</a>
                   <% end %>
                   <br>
+
+                  <% unless subsubsub.votes.find_by(user_id: session[:user_id]) && session[:user_id] %>
+                    <a href="/posts/<%= post_id %>/comments/<%= subsubsub_id %>/votes">vote</a> |
+                  <% end %>
+
+                  <% if last_vote = subsubsub.votes.last %>
+                    last voted by: <a href="/users/<%= last_vote.user_id %>"><%= last_vote.user.username %></a> |
+                  <% end %>
+
                   <a href="/post/<%= post_id %>/comments/<%= subsubsub.id %>/subcomments/new">reply</a></p></li>
+
+<!-- ************************************************************************************************************************************** -->
+                                <!-- level 5 -->
+
                         <% if subsubsub.subcomments.length > 0 %>
                           <ul>
                             <% subsubsub.subcomments.each do |subsubsubsub| %>
@@ -66,10 +120,24 @@
                                 <% if subsubsubsub.user_id == session[:user_id] && session[:user_id] %>
                                   | <a href="/posts/<%= post_id %>/comments/<%= subsubsubsub_id %>/edit">edit</a> | <a href="/posts/<%= post_id %>/comments/<%= subsubsubsub_id %>/delete">delete</a>
                                 <% end %>
+                                <br>
+
+                                <% unless subsubsubsub.votes.find_by(user_id: session[:user_id]) && session[:user_id] %>
+                                  <a href="/posts/<%= post_id %>/comments/<%= subsubsubsub_id %>/votes">vote</a>
+                                <% end %>
+
+                                <% if last_vote = subsubsubsub.votes.last %>
+                                  last voted by: <a href="/users/<%= last_vote.user_id %>"><%= last_vote.user.username %></a>
+                                <% end %>
+
                                 <br></p></li>
                             <% end %>
                           </ul>
                         <% end %>
+
+<!-- ************************************************************************************************************************************** -->
+                                                    <!-- end -->
+
                       <% end %>
                     </ul>
                   <% end %>
