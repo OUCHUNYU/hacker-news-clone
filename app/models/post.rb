@@ -8,12 +8,19 @@ class Post < ActiveRecord::Base
 
   private
   def valid_url?
-    if self.url.length == 0
+    if self.url == nil
       return true
     end
-    uri = URI.parse(self.url)
+    begin
+      uri = URI.parse(self.url)
+    rescue Exception => e
+      errors.add(:url, "not valid url!")
+      return false
+    end
+
     if !uri.kind_of?(URI::HTTP)
       errors.add(:url, "not valid url!")
+      return false
     end
   end
 end
