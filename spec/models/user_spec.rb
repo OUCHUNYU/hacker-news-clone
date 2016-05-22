@@ -9,7 +9,6 @@ require './spec/spec_helper.rb'
 
 # before testing run command  rake db:test:prepare
 
-# user = User.new(username: "Chunyu", email: "ouchunyu@yahoo.com", password: "333666")
 describe User do
   let(:user) { User.new(username: "Chunyu", email: "ouchunyu@yahoo.com", password: "333666") }
 
