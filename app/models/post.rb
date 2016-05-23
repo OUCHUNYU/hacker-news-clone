@@ -8,7 +8,7 @@ class Post < ActiveRecord::Base
 
   private
   def valid_url?
-    if self.url == nil
+    if self.url == nil || self.url == ''
       return true
     end
     begin

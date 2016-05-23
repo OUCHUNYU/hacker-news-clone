@@ -22,3 +22,12 @@ def app
 end
 
 Capybara.app = app.new
+
+def sign_in_a_user
+  visit 'sessions/new'
+  within("#sign-in") do
+    fill_in 'signin-email', :with => 'testuser@yahoo.com'
+    fill_in 'signin-password', :with => '333666'
+  end
+  click_button 'Login'
+end
