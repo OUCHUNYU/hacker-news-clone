@@ -1,5 +1,5 @@
 # Hacker News Clone
-A sinatra [Hacker News](https://news.ycombinator.com/) clone project. Heroku link: <br />
+A sinatra [Hacker News](https://news.ycombinator.com/) clone project. Heroku link: http://chunyu-hacker-news-clone.herokuapp.com/<br />
 Using **polymorphic association** to implement voting<br />
 Using **self referencing association** to implement infinite nested commenting <br />
 
