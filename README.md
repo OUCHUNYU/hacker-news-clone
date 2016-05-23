@@ -9,4 +9,4 @@
 
 
 ### Schema
-![schema](public/schema.png)
+<img src="public/schema.png" width=700>
