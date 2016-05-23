@@ -16,5 +16,6 @@ end
 
 get '/sessions/logout' do
   session.clear
+  session[:success] = "Logout successfully"
   redirect '/'
 end

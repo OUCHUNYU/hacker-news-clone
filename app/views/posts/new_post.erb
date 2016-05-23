@@ -1,14 +1,14 @@
-<form action="/posts" method="POST">
+<form action="/posts" method="POST" id="new-post-form">
   title:<br>
-  <input type="text" name="posts[title]">
+  <input type="text" name="posts[title]" id="new-post-form-title">
   <br>
   url:<br>
-  <input type="text" name="posts[url]">
+  <input type="text" name="posts[url]" id="new-post-form-url">
   <br>
   or<br>
   <br>
   text:<br>
-  <textarea name="posts[content]" rows="4" cols="49"></textarea>
+  <textarea name="posts[content]" rows="4" cols="49" id="new-post-form-content"></textarea>
   <br><br>
   <input type="submit" value="Submit">
 </form>

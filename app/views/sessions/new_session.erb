@@ -1,10 +1,10 @@
 <h3>Login</h3>
-<form action="/sessions" method="POST">
+<form action="/sessions" method="POST" id="sign-in">
   email:<br>
-  <input type="text" name="sessions[email]">
+  <input type="text" name="sessions[email]" id="signin-email">
   <br>
   password:<br>
-  <input type="password" name="sessions[password]">
+  <input type="password" name="sessions[password]" id="signin-password">
   <br>
   <br>
   <input type="submit" value="Login">
@@ -17,15 +17,15 @@
 <br>
 
 <h3>Create a new user</h3>
-<form action="/users" method="POST">
+<form action="/users" method="POST" id="sign-up">
   username:<br>
-  <input type="text" name="users[username]">
+  <input type="text" name="users[username]" id="signup-username">
   <br>
   email:<br>
-  <input type="text" name="users[email]">
+  <input type="text" name="users[email]" id="signup-email">
   <br>
   password:<br>
-  <input type="password" name="users[password]">
+  <input type="password" name="users[password]" id="signup-password">
   <br>
   <br>
   <input type="submit" value="Create">
