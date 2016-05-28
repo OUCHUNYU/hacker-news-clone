@@ -10,7 +10,7 @@
     <br>
 
     <% unless post.votes.find_by(user_id: session[:user_id]) && session[:user_id] %>
-      <a class="vote" href="/posts/<%= post_id %>/votes">vote</a>
+      <a id="vote-<%= index %>" class="vote" href="/posts/<%= post_id %>/votes">vote</a>
     <% end %>
 
     <% if last_vote = post.votes.last %>
