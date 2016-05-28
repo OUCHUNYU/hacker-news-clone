@@ -16,7 +16,7 @@
 
   <!-- ************************************************************************************************************************************** -->
                                 <!-- level 1 -->
-  <% @post.comments.each do |comment| %>
+  <% @post.comments.each_with_index do |comment, index| %>
 
     <li>
       <p>
@@ -34,7 +34,7 @@
         <% if last_vote = comment.votes.last %>
           last voted by: <a href="/users/<%= last_vote.user_id %>"><%= last_vote.user.username %></a> |
         <% end %>
-        <a href="/post/<%= post_id %>/comments/<%= comment_id %>/subcomments/new">reply</a>
+        <a id="reply-<%= index %>" href="/post/<%= post_id %>/comments/<%= comment_id %>/subcomments/new">reply</a>
 
 <!-- ************************************************************************************************************************************** -->
                                 <!-- level 2 -->

@@ -1,5 +1,5 @@
-<form action="/posts/<%= post_id %>/comments" method="POST">
-  <textarea name="comments[content]" rows="4" cols="49"></textarea>
+<form action="/posts/<%= post_id %>/comments" method="POST" id="new-comment-form">
+  <textarea name="comments[content]" rows="4" cols="49" id="new-comment-textarea"></textarea>
   <br>
   <input type="submit" value="Comment">
 </form>

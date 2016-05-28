@@ -12,6 +12,7 @@ require 'shoulda-matchers'
 require 'rack/test'
 require 'capybara'
 require 'capybara/rspec'
+require "selenium-webdriver"
 
 RSpec.configure do |config|
   config.include Rack::Test::Methods
@@ -23,11 +24,22 @@ end
 
 Capybara.app = app.new
 
-def sign_in_a_user
+def sign_in_a_user(username)
   visit 'sessions/new'
   within("#sign-in") do
-    fill_in 'signin-email', :with => 'testuser@yahoo.com'
+    fill_in 'signin-email', :with => "#{username}@yahoo.com"
     fill_in 'signin-password', :with => '333666'
   end
   click_button 'Login'
+end
+
+def create_a_new_user(username)
+  visit 'sessions/new'
+  within("#sign-up") do
+    fill_in 'signup-username', :with => username
+    fill_in 'signup-email', :with => "#{username}@yahoo.com"
+    fill_in 'signup-password', :with => '333666'
+  end
+  click_button 'Create'
+  expect(page).to have_content 'New user reated successfully'
 end
