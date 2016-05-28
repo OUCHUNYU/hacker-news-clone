@@ -26,11 +26,14 @@ GEM
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
+    childprocess (0.5.9)
+      ffi (~> 1.0, >= 1.0.11)
     diff-lcs (1.2.5)
     factory_girl (4.7.0)
       activesupport (>= 3.0.0)
     faker (1.6.3)
       i18n (~> 0.5)
+    ffi (1.9.10)
     i18n (0.7.0)
     json (1.8.3)
     mime-types (3.0)
@@ -61,6 +64,11 @@ GEM
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.4.0)
     rspec-support (3.4.1)
+    rubyzip (1.2.0)
+    selenium-webdriver (2.53.0)
+      childprocess (~> 0.5)
+      rubyzip (~> 1.0)
+      websocket (~> 1.0)
     shotgun (0.9.1)
       rack (>= 1.0)
     shoulda-matchers (3.1.1)
@@ -80,6 +88,7 @@ GEM
     tilt (2.0.2)
     tzinfo (1.2.2)
       thread_safe (~> 0.1)
+    websocket (1.2.3)
     xpath (2.0.0)
       nokogiri (~> 1.3)
 
@@ -97,10 +106,11 @@ DEPENDENCIES
   rack-test
   rake
   rspec (~> 3.0)
+  selenium-webdriver
   shotgun
   shoulda-matchers
   sinatra
   sinatra-contrib
 
 BUNDLED WITH
-   1.10.6
+   1.11.2
